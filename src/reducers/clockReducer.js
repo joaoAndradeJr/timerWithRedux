@@ -11,13 +11,13 @@ export const clockReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case TOTAL_TIME:
     return {
-      totalTime: state.totalTime + action.payload.time,
-      remainTime: state.remainTime + action.payload.time,
+      totalTime: action.payload.time,
+      remainTime: action.payload.time,
     };
   case REMAIN_TIME:
     return {
       ...state,
-      remainTime: action.payload.remainTime,
+      remainTime: action.payload.time,
     };
   case RESET_TIME:
     return INITIAL_STATE;

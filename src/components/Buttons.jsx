@@ -1,17 +1,35 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { sendTimeAction, resetTimeAction } from '../actions/sendTime';
+import { sendTimeAction, sendRemainTimeAction } from '../actions/sendTime';
 
 class Buttons extends React.Component {
 
   handleClick(time) {
-    const { sendTime, resetTime } = this.props;
-    if (time === 0 ) resetTime();
+    const { sendTime } = this.props;
     sendTime(time);
   }
 
+  // stopReset() {
+  //   const { resetTime } = this.props;
+  //   clearInterval(this.start());
+  //   resetTime();
+  // }
+
+  start() {
+    const { time, remainTime } = this.props;
+    let counter = time;
+    setInterval(() => {
+      counter--;
+      remainTime(counter);
+      // console.log(newTime);
+    }, 1000); 
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.start());
+  }
+
   renderButtons() {
-    const resetTime = 0;
     const halfMinute = 30;
     const threeMinutes = 180;
     const fiveMinutes = 300;
@@ -31,7 +49,7 @@ class Buttons extends React.Component {
           10:00
         </button>
         <button type="button" id="start" onClick={ () => this.start() }>Iniciar</button>
-        <button type="button" id="reset" onClick={ () => this.handleClick(resetTime) }>Zerar</button>
+        {/* <button type="button" id="reset" onClick={ () => this.stopReset() }>Zerar</button> */}
       </section>
     );
   }
@@ -50,7 +68,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   sendTime: (time) => dispatch(sendTimeAction(time)),
-  resetTime: () => dispatch(resetTimeAction()),
+  remainTime: (time) => dispatch(sendRemainTimeAction(time)),
+  // resetTime: () => dispatch(resetTimeAction()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Buttons);

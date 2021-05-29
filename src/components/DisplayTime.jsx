@@ -5,13 +5,15 @@ import convertSeconds from '../services/convertSeconds';
 class DisplayTime extends Component {
   render() {
     const { total, remain } = this.props;
+    const totalTime = convertSeconds(total);
+    const remainTime = convertSeconds(remain);
     return (
       <div>
         <section>
-          { convertSeconds(total) }
+          <p>Tempo selecionado: { totalTime }</p>
         </section>
         <section>
-          { convertSeconds(remain) }
+          <p>Tempo restante: <strong>{ remainTime }</strong></p>
         </section>
       </div>
     );
