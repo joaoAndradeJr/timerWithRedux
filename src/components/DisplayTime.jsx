@@ -1,14 +1,26 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import convertSeconds from '../services/convertSeconds';
+
 class DisplayTime extends Component {
   render() {
-    const { remain } = this.props;
+    const { total, remain } = this.props;
     return (
       <div>
-        { convertSeconds(remain) }
+        <section>
+          { convertSeconds(total) }
+        </section>
+        <section>
+          { convertSeconds(remain) }
+        </section>
       </div>
     );
   }
 }
 
-export default DisplayTime;
+const mapStateToProps = (state) => ({
+  total: state.clockReducer.totalTime,
+  remain: state.clockReducer.remainTime,
+});
+
+export default connect(mapStateToProps)(DisplayTime);

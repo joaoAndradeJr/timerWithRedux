@@ -1,8 +1,19 @@
-import { TOTAL_TIME } from '../reducers/clockReducer';
+import { TOTAL_TIME, REMAIN_TIME, RESET_TIME } from '../reducers/clockReducer';
 
-const sendTimeAction = (time) => ({
+export const sendTimeAction = (time) => ({
   type: TOTAL_TIME,
-  payload: time,
+  payload: {
+    time,
+  },
 });
 
-export default sendTimeAction;
+export const sendRemainTimeAction = (time) => ({
+  type: REMAIN_TIME,
+  payload: {
+    time,
+  }
+});
+
+export const resetTimeAction = () => ({
+  type: RESET_TIME,
+});

@@ -1,15 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import sendTimeAction from '../actions/sendTime';
+import { sendTimeAction, resetTimeAction } from '../actions/sendTime';
 
 class Buttons extends React.Component {
 
   handleClick(time) {
-    const { sendTime } = this.props;
+    const { sendTime, resetTime } = this.props;
+    if (time === 0 ) resetTime();
     sendTime(time);
   }
 
   renderButtons() {
+    const resetTime = 0;
     const halfMinute = 30;
     const threeMinutes = 180;
     const fiveMinutes = 300;
@@ -28,21 +30,27 @@ class Buttons extends React.Component {
         <button type="button" value={tenMinutes} onClick={() => this.handleClick(tenMinutes)}>
           10:00
         </button>
+        <button type="button" id="start" onClick={ () => this.start() }>Iniciar</button>
+        <button type="button" id="reset" onClick={ () => this.handleClick(resetTime) }>Zerar</button>
       </section>
     );
   }
-
   render() {
     return (
-      <section>
+      <>
         { this.renderButtons() }
-      </section>
+      </>
     );
   }
 }
 
-const mapDispatchToProps= (dispatch) => ({
-  sendTime: (time) => dispatch(sendTimeAction(time)),
+const mapStateToProps = (state) => ({
+  time: state.clockReducer.totalTime,
 });
 
-export default connect(null, mapDispatchToProps)(Buttons);
+const mapDispatchToProps = (dispatch) => ({
+  sendTime: (time) => dispatch(sendTimeAction(time)),
+  resetTime: () => dispatch(resetTimeAction()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Buttons);
