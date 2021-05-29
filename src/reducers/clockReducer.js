@@ -6,7 +6,7 @@ const INITIAL_STATE = {
   remainTime: 0,
 };
 
-export function clockReducer(state = INITIAL_STATE, action) {
+export const clockReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case TOTAL_TIME:
     return {

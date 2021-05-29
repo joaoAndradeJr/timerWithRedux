@@ -6,12 +6,11 @@ import convertSeconds from '../services/convertSeconds';
 
 class Timer extends Component {
 
-  renderTimes() {
-    const { total, remain } = this.props;
+  renderTimes(total, remain) {
     return (
       <>
         <h3>
-          Tempo total: { total }
+          Tempo total: { convertSeconds(total) }
         </h3>
         <h3>
           Tempo restante: { convertSeconds(remain) }
@@ -20,12 +19,12 @@ class Timer extends Component {
     );
   }
   render() {
-    const { remain } = this.props;
+    const { remain, total } = this.props;
     return (
       <div>
         <DisplayTime remain={ remain } />
         <Buttons />
-        { this.renderTimes() }
+        { this.renderTimes(total, remain) }
       </div>
     );
   }

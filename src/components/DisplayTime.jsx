@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
 import convertSeconds from '../services/convertSeconds';
 class DisplayTime extends Component {
-  renderTimerDisplay() {
+  render() {
     const { remain } = this.props;
     return (
       <div>
-        {convertSeconds(remain)}
-      </div>
-    );
-  }
-  render() {
-    return (
-      <div>
-        { this.renderTimerDisplay() }
+        { convertSeconds(remain) }
       </div>
     );
   }
